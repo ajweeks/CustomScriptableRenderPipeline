@@ -11,6 +11,15 @@ public class MyPipeline : RenderPipeline
     };
 
     private Material _errorMat;
+
+    private bool _dynamicBatching = false;
+    private bool _instancing = false;
+
+    public MyPipeline(bool dynamicBatching, bool instancing)
+    {
+        _dynamicBatching = dynamicBatching;
+        _instancing = instancing;
+    }
     
     protected override void Render(ScriptableRenderContext context, Camera[] cameras)
     {
@@ -54,6 +63,8 @@ public class MyPipeline : RenderPipeline
         };
 
         var drawSettings = new DrawingSettings(new ShaderTagId("SRPDefaultUnlit"), sortingSettings);
+        drawSettings.enableDynamicBatching = _dynamicBatching;
+        drawSettings.enableInstancing = _instancing;
         
         var filterSettings = new FilteringSettings(RenderQueueRange.opaque);
         context.DrawRenderers(_cull, ref drawSettings, ref filterSettings);

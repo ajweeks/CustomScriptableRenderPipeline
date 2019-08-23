@@ -4,11 +4,11 @@ using UnityEngine.Rendering;
 [CreateAssetMenu(menuName = "Rendering/MyPipeline")]
 public class MyPipelineAsset : RenderPipelineAsset
 {
-    [SerializeField] bool dynamicBatching;
-    [SerializeField] bool instancing;
+    [SerializeField] private bool _dynamicBatching;
+    [SerializeField] private bool _instancing;
     
     protected override RenderPipeline CreatePipeline()
     {
-        return new MyPipeline(dynamicBatching, instancing);
+        return new MyPipeline(_dynamicBatching, _instancing);
     }
 }
